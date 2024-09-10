@@ -17,7 +17,7 @@ func main() {
 	count := 0
 	for scanner.Scan() {
 		str := scanner.Text()
-		if check(str) {
+		if check(str) && check2(str) {
 			count++
 		}
 
@@ -26,27 +26,29 @@ func main() {
 }
 
 func check(str string) bool {
-	
-	check := true
 	l := len(str)
-	pairs := make(map[string]int)
 
 	for i := 0; i < l-2; i++ {
-		pair := str[i : i+2]
-		pairs[pair]++
-		//for sandwich "aba"
+		// for sandwich "aba"
 		if str[i] == str[i+2] {
-			check = true
+			return true
+		}
+	}
+
+	return false
+}
+
+func check2(str string) bool {
+	l := len(str)
+	// for pairs that are more than 2
+	for i := 0; i < l-1; i++ {
+		for j := i+2;j<l-1;j++{
+			if str[j:j+2] == str[i:i+2]{
+				return true
+			}
 		}
 		
 	}
-	rep := false
-	//for pairs that are more than 2
-	for _, v := range pairs{
-		if v > 1{
-			rep = true
-			break
-		}
-	}
-	return check && rep
+	return false
 }
+
